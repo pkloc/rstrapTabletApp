@@ -25,7 +25,6 @@
     <Compile Include="MainApplication.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="pythonGuiTest.py" />
     <Compile Include="serialTest.py">
       <SubType>Code</SubType>
     </Compile>
