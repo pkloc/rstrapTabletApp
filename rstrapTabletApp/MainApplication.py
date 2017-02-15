@@ -35,10 +35,11 @@ class MainApplication(tk.Frame):
         device_found = False
 
         for port_info in list_ports.comports():
+            print('found device: ' + port_info.description)
             if 'Arduino' in port_info.description:
                 device_found = True
                 self.connect_button.config(state = 'disabled')
-                print('found device: ' + port_info.description)
+                print('connecting to device: ' + port_info.description)
                 self.device_port = port_info.device
                 self.serial = serial.Serial(self.device_port, self.baud_rate, timeout=0)
                 self.readSerial()
