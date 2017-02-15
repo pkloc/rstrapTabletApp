@@ -16,7 +16,7 @@ class MainApplication(tk.Frame):
         self.serial = serial.Serial()
         self.serial_input = ''
 
-        self.connect_button = tk.Button(master, text="Connect to device", command=self.connect_to_device)
+        self.connect_button = tk.Button(master, text="Connect to device", command=self.connect_to_device, height=4, width=20)        
         self.connect_button.pack()
 
         # make a scrollbar
