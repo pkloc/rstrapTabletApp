@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import messagebox
 from serial.tools import list_ports
 import serial as serial
 
@@ -15,8 +16,8 @@ class MainApplication(tk.Frame):
         self.serial = serial.Serial()
         self.serial_input = ''
 
-        self.button = tk.Button(master, text="Find device", command=self.find_device)
-        self.button.pack()
+        self.connect_button = tk.Button(master, text="Connect to device", command=self.connect_to_device)
+        self.connect_button.pack()
 
         # make a scrollbar
         self.scrollbar = tk.Scrollbar(master)
@@ -30,13 +31,21 @@ class MainApplication(tk.Frame):
         self.log.config(yscrollcommand=self.scrollbar.set)
         self.scrollbar.config(command = self.log.yview)
 
-    def find_device(self):
+    def connect_to_device(self):
+        device_found = False
+
         for port_info in list_ports.comports():
             if 'Arduino' in port_info.description:
+                device_found = True
+                self.connect_button.config(state = 'disabled')
                 print('found device: ' + port_info.description)
                 self.device_port = port_info.device
                 self.serial = serial.Serial(self.device_port, self.baud_rate, timeout=0)
                 self.readSerial()
+            
+
+        if not device_found:
+            messagebox.showinfo('Device not found', 'No devices have been found')
 
     def readSerial(self):
         try:            
